@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinal — Nexus</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0b0e14;
+    color: #d7dce2;
+    font-family: 'Consolas', 'SFMono-Regular', Menlo, monospace;
+    padding: 24px;
+  }
+  .card {
+    max-width: 560px;
+    width: 100%;
+    border: 1px solid #262b36;
+    border-radius: 10px;
+    padding: 32px;
+    background: #10141d;
+  }
+  h1 {
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8fa6c9;
+    margin: 0 0 20px;
+  }
+  .cipher {
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: #e2b13c;
+    padding: 16px;
+    background: #0b0e14;
+    border: 1px dashed #33394a;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 24px;
+    word-break: break-word;
+  }
+  p.hint {
+    font-size: 0.85rem;
+    color: #6b7482;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: #0b0e14;
+    border: 1px solid #33394a;
+    border-radius: 6px;
+    color: #d7dce2;
+    margin-bottom: 12px;
+  }
+  input:focus { outline: none; border-color: #8fa6c9; }
+  button {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: #2c3646;
+    color: #d7dce2;
+    border: 1px solid #3d4a5f;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover { background: #3d4a5f; }
+  #result { margin-top: 20px; text-align: center; }
+  #result a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 18px;
+    background: #e2b13c;
+    color: #0b0e14;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+  }
+  #error { color: #d16a6a; font-size: 0.85rem; min-height: 1.2em; margin-bottom: 8px; }
+  p.whisper {
+    font-size: 0.75rem;
+    color: #454e5e;
+    text-align: center;
+    margin-top: 24px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Transmissão interceptada</h1>
+    <div class="cipher">B ARKHF QRFCREGN</div>
+    <p class="hint">
+      Cifra de deslocamento simples — o mesmo alfabeto, girado. Decodifique e digite a
+      frase abaixo.
+    </p>
+    <input type="text" id="answer" placeholder="Resposta decodificada..." autocomplete="off">
+    <div id="error"></div>
+    <button id="submit">Decodificar</button>
+    <div id="result"></div>
+    <p class="whisper">— algo no Discord já ouviu essa frequência antes —</p>
+  </div>
+
+<script>
+  // Troque pela URL real do repositório final antes de publicar
+  const FINAL_REPO_URL = "https://github.com/workspacetiger-design/NXS_HAoTS_MHoL_PHSM";
+
+  const normalize = (s) => s.toLowerCase().trim().replace(/\s+/g, ' ');
+  const ANSWER = normalize("o nexus desperta");
+
+  document.getElementById('submit').addEventListener('click', () => {
+    const input = document.getElementById('answer').value;
+    const errorEl = document.getElementById('error');
+    const resultEl = document.getElementById('result');
+
+    if (normalize(input) === ANSWER) {
+      errorEl.textContent = '';
+      resultEl.innerHTML = 'Sinal confirmado.<br><a href="' + FINAL_REPO_URL + '" target="_blank" rel="noopener">Seguir transmissão</a>';
+    } else {
+      errorEl.textContent = 'Frequência incorreta. Tente novamente.';
+    }
+  });
+
+  document.getElementById('answer').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('submit').click();
+  });
+</script>
+</body>
+</html>
